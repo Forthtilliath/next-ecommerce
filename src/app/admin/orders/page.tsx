@@ -1,3 +1,3 @@
 export default function AdminSalesPage() {
-  return <div>Sales</div>;
+	return <div>Sales</div>;
 }
