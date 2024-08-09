@@ -1,6 +1,11 @@
 import { ProductCard, ProductCardSkeleton } from "@/components/ProductCard";
+import { cache } from "@/lib/cache";
 import db from "@/lib/db";
 import { Suspense } from "react";
+
+const getProducts = cache(db.products.getAllActive, ["/products", "getProducts"], {
+	revalidate: 60 * 60 * 24,
+});
 
 export default function ProductsPage() {
 	return (
@@ -14,7 +19,7 @@ export default function ProductsPage() {
 }
 
 async function ProductsSuspense() {
-	const products = await db.products.getAllActive();
+	const products = await getProducts();
 
 	return products.map((product) => <ProductCard key={product.id} {...product} />);
 }

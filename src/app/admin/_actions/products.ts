@@ -2,6 +2,7 @@
 
 import fs from "node:fs/promises";
 import db from "@/lib/db";
+import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
 import { z } from "zod";
 
@@ -48,6 +49,9 @@ export async function createProduct(_prevState: unknown, formData: FormData) {
 		imagePath,
 	});
 
+	revalidatePath("/");
+	revalidatePath("/products");
+
 	redirect("/admin/products");
 }
 
@@ -77,11 +81,17 @@ export async function updateProduct(id: string, _prevState: unknown, formData: F
 
 	await db.products.update({ id, name, priceInCents, description, filePath, imagePath });
 
+	revalidatePath("/");
+	revalidatePath("/products");
+
 	redirect("/admin/products");
 }
 
 export async function toggleProductAvailability(id: string, isAvailableForPurchase: boolean) {
 	await db.products.update({ id, isAvailableForPurchase });
+
+	revalidatePath("/");
+	revalidatePath("/products");
 }
 
 export async function deleteProduct(id: string) {
@@ -90,4 +100,7 @@ export async function deleteProduct(id: string) {
 
 	fs.unlink(product.filePath);
 	fs.unlink(`public/${product.imagePath}`);
+
+	revalidatePath("/");
+	revalidatePath("/products");
 }
