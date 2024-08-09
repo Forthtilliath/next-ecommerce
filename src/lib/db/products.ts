@@ -24,6 +24,13 @@ export async function getAll() {
 	});
 }
 
+export async function getAllActive() {
+	return prisma.product.findMany({
+		where: { isAvailableForPurchase: true },
+		orderBy: { name: "asc" },
+	});
+}
+
 export async function update({ id, ...data }: ProductUpdate) {
 	return prisma.product.update({
 		where: { id },
