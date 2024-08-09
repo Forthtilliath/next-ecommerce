@@ -1,6 +1,7 @@
 "use client";
 
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import db from "@/lib/db";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { deleteProduct, toggleProductAvailability } from "../../_actions/products";
@@ -20,7 +21,7 @@ export function ActiveToggleDropdownItem({
 			disabled={isPending}
 			onClick={() => {
 				startTransition(async () => {
-					await toggleProductAvailability(id, !isAvailableForPurchase);
+					await db.products.update({ id, isAvailableForPurchase: !isAvailableForPurchase });
 					router.refresh();
 				});
 			}}

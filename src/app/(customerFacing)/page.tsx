@@ -6,27 +6,14 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 
-async function getNewestProducts() {
-	return db.product.findMany({
-		where: { isAvailableForPurchase: true },
-		orderBy: { createdAt: "desc" },
-		take: 6,
-	});
-}
-
-async function getMostPopularProducts() {
-	return db.product.findMany({
-		where: { isAvailableForPurchase: true },
-		orderBy: { orders: { _count: "desc" } },
-		take: 6,
-	});
-}
-
 export default function HomePage() {
 	return (
 		<main className="space-y-12">
-			<ProductGridSection title="Most Popular" productsFetcher={getMostPopularProducts} />
-			<ProductGridSection title="Newest" productsFetcher={getNewestProducts} />
+			<ProductGridSection
+				title="Most Popular"
+				productsFetcher={db.products.getMostPopularProducts}
+			/>
+			<ProductGridSection title="Newest   " productsFetcher={db.products.getNewestProducts} />
 		</main>
 	);
 }

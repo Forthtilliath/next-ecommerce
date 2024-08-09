@@ -14,10 +14,10 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
+import db from "@/lib/db";
 import { formatCurrency, formatNumber } from "@/lib/formatters";
 import { CheckCircle2, MoreVertical, XCircle } from "lucide-react";
 import Link from "next/link";
-import { getProducts } from "../_actions/products";
 import { PageHeader } from "../_components/PageHeader";
 import { ActiveToggleDropdownItem, DeleteDropdownItem } from "./_components/ProductActions";
 
@@ -37,7 +37,7 @@ export default function AdminProductsPage() {
 }
 
 async function ProductsTable() {
-	const products = await getProducts();
+	const products = await db.products.getAll();
 
 	if (products.length === 0) return <p>No products found</p>;
 

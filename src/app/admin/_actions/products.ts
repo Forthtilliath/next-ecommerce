@@ -40,14 +40,12 @@ export async function createProduct(_prevState: unknown, formData: FormData) {
 	const imagePath = `/products/${crypto.randomUUID()}-${image.name}`;
 	fs.writeFile(`public${imagePath}`, Buffer.from(await image.arrayBuffer()));
 
-	await db.product.create({
-		data: {
-			name,
-			priceInCents,
-			description,
-			filePath,
-			imagePath,
-		},
+	await db.products.create({
+		name,
+		priceInCents,
+		description,
+		filePath,
+		imagePath,
 	});
 
 	redirect("/admin/products");
@@ -60,7 +58,7 @@ export async function updateProduct(id: string, _prevState: unknown, formData: F
 	}
 
 	const { name, priceInCents, description, file, image } = result.data;
-	const product = await db.product.findUnique({ where: { id } });
+	const product = await db.products.get(id);
 	if (!product) return notFound();
 
 	let filePath = product.filePath;
@@ -77,48 +75,19 @@ export async function updateProduct(id: string, _prevState: unknown, formData: F
 		fs.writeFile(`public${imagePath}`, Buffer.from(await image.arrayBuffer()));
 	}
 
-	await db.product.update({
-		where: { id },
-		data: {
-			name,
-			priceInCents,
-			description,
-			filePath,
-			imagePath,
-		},
-	});
+	await db.products.update({ id, name, priceInCents, description, filePath, imagePath });
 
 	redirect("/admin/products");
 }
 
 export async function toggleProductAvailability(id: string, isAvailableForPurchase: boolean) {
-	await db.product.update({
-		where: { id },
-		data: { isAvailableForPurchase },
-	});
+	await db.products.update({ id, isAvailableForPurchase });
 }
 
 export async function deleteProduct(id: string) {
-	const product = await db.product.delete({ where: { id } });
+	const product = await db.products.delete(id);
 	if (!product) return notFound();
 
 	fs.unlink(product.filePath);
 	fs.unlink(`public/${product.imagePath}`);
-}
-
-export async function getProducts() {
-	return db.product.findMany({
-		select: {
-			id: true,
-			name: true,
-			priceInCents: true,
-			isAvailableForPurchase: true,
-			_count: { select: { orders: true } },
-		},
-		orderBy: { name: "asc" },
-	});
-}
-
-export async function getProduct(id: string, select?: ProductSelect) {
-	return db.product.findUnique({ where: { id }, select });
 }

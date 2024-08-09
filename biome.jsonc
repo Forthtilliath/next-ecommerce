@@ -15,5 +15,10 @@
 	},
 	"organizeImports": {
 		"enabled": true
+	},
+	"javascript": {
+		"formatter": {
+			"attributePosition": "multiline"
+		}
 	}
 }
