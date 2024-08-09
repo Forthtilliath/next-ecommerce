@@ -15,6 +15,9 @@ declare global {
 			// NODE_ENV: "development" | "production" | "test";
 			ADMIN_USERNAME: string;
 			ADMIN_HASHED_PASSWORD: string;
+			NEXT_PUBLIC_STRIPE_PUBLIC_KEY: string;
+			STRIPE_SECRET_KEY: string;
+			NEXT_PUBLIC_SERVER_URL: string;
 		}
 	}
 }
