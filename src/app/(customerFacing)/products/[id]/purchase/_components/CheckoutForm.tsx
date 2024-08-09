@@ -1,5 +1,6 @@
 "use client";
 
+import { userOrderExists } from "@/app/actions/orders";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -11,13 +12,19 @@ import {
 } from "@/components/ui/card";
 import { formatCurrency } from "@/lib/formatters";
 import type { Product } from "@prisma/client";
-import { Elements, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import {
+	Elements,
+	LinkAuthenticationElement,
+	PaymentElement,
+	useElements,
+	useStripe,
+} from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Image from "next/image";
 import { useState } from "react";
 
 type Props = {
-	product: Pick<Product, "name" | "priceInCents" | "imagePath" | "description">;
+	product: Pick<Product, "id" | "name" | "priceInCents" | "imagePath" | "description">;
 	clientSecret: string;
 };
 
@@ -37,24 +44,38 @@ export function CheckoutForm({ product, clientSecret }: Props) {
 				</div>
 			</div>
 			<Elements stripe={stripePromise} options={{ clientSecret }}>
-				<Form priceInCents={product.priceInCents} />
+				<Form priceInCents={product.priceInCents} productId={product.id} />
 			</Elements>
 		</div>
 	);
 }
 
-function Form({ priceInCents }: Pick<Props["product"], "priceInCents">) {
+type FormProps = {
+	productId: Product["id"];
+	priceInCents: Product["priceInCents"];
+};
+function Form({ priceInCents, productId }: FormProps) {
 	const stripe = useStripe();
 	const elements = useElements();
 	const [isLoading, setIsLoading] = useState(false);
 	const [errorMessage, setErrorMessage] = useState<string>();
+	const [email, setEmail] = useState<string>();
 
-	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
-
-		if (!stripe || !elements || isLoading) return;
+		if (!stripe || !elements || !email || isLoading) return;
 
 		setIsLoading(true);
+
+		const orderExists = await userOrderExists(email, productId);
+
+		if (orderExists) {
+			setErrorMessage(
+				"You already have an order for this product. Try downloading it from the My Orders page.",
+			);
+			setIsLoading(false);
+			return;
+		}
 
 		stripe
 			.confirmPayment({
@@ -65,6 +86,7 @@ function Form({ priceInCents }: Pick<Props["product"], "priceInCents">) {
 			})
 			.then(({ error }) => {
 				if (error.type === "card_error" || error.type === "validation_error") {
+					console.log(error);
 					setErrorMessage(error.message);
 				} else {
 					setErrorMessage("An unexpected error occurred.");
@@ -78,10 +100,15 @@ function Form({ priceInCents }: Pick<Props["product"], "priceInCents">) {
 			<Card>
 				<CardHeader>
 					<CardTitle>Checkout</CardTitle>
-					{errorMessage && <CardDescription className="text-destructive">Error</CardDescription>}
+					{errorMessage && (
+						<CardDescription className="text-destructive">{errorMessage}</CardDescription>
+					)}
 				</CardHeader>
 				<CardContent>
 					<PaymentElement />
+					<div className="mt-4">
+						<LinkAuthenticationElement onChange={(e) => setEmail(e.value.email)} />
+					</div>
 				</CardContent>
 				<CardFooter>
 					<Button className="w-full" size="lg" disabled={!stripe || !elements}>

@@ -1,11 +1,10 @@
 import fs from "node:fs/promises";
-import { getProduct } from "@/app/admin/_actions/products";
+import db from "@/lib/db";
 import { notFound } from "next/navigation";
 import { type NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, { params: { id } }: Params<{ id: string }>) {
-	const product = await getProduct(id, { filePath: true, name: true });
-
+	const product = await db.products.get(id, { filePath: true, name: true });
 	if (!product) return notFound();
 
 	const { size } = await fs.stat(product.filePath);

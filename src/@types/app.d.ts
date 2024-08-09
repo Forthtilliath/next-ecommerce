@@ -12,12 +12,22 @@ declare global {
 
 	namespace NodeJS {
 		interface ProcessEnv {
+			// app
 			// NODE_ENV: "development" | "production" | "test";
+			NEXT_PUBLIC_SERVER_URL: string;
+
+			// admin
 			ADMIN_USERNAME: string;
 			ADMIN_HASHED_PASSWORD: string;
+
+			// stripe
 			NEXT_PUBLIC_STRIPE_PUBLIC_KEY: string;
 			STRIPE_SECRET_KEY: string;
-			NEXT_PUBLIC_SERVER_URL: string;
+			STRIPE_WEBHOOK_SECRET: string;
+
+			// mails
+			RESEND_API_KEY: string;
+			SENDER_EMAIL: string;
 		}
 	}
 }

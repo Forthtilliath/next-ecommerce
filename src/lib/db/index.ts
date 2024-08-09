@@ -1,3 +1,4 @@
+import * as downloadVerificationQueries from "./downloadVerifications";
 import * as ordersQueries from "./orders";
 import * as productsQueries from "./products";
 import * as usersQueries from "./users";
@@ -11,6 +12,7 @@ const db = {
 	},
 	users: usersQueries,
 	orders: ordersQueries,
+	downloadVerifications: downloadVerificationQueries,
 };
 
 export default db;
