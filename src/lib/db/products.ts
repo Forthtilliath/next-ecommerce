@@ -7,7 +7,7 @@ export async function create(data: ProductCreate) {
 	return prisma.product.create({ data });
 }
 
-export async function get(id: Product["id"], select?: ProductSelect) {
+export async function get<T extends ProductSelect>(id: Product["id"], select: T = {} as T) {
 	return prisma.product.findUnique({ where: { id }, select });
 }
 

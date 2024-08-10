@@ -22,6 +22,10 @@ export async function getCountUsers() {
 	return prisma.user.count();
 }
 
+export async function get<T extends UserSelect>(email: User["email"], select: T = {} as T) {
+	return prisma.user.findUnique({ where: { email }, select });
+}
+
 export async function getAll() {
 	return prisma.user.findMany({
 		select: {
