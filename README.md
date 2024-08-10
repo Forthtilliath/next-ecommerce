@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next Ecommerce
 
-## Getting Started
+## Description
 
-First, run the development server:
+Créer un site e-commerce n'est pas une mince affaire. Il y a tellement de choses différentes qui entrent en jeu même pour un site e-commerce simple, allant depuis un tableau de bord administrateur jusqu'à la gestion des paiements et des comptes, et bien d'autres encore.
 
+Ce projet vous guidera à travers chaque étape cruciale pour lancer votre première boutique e-commerce, conçue de zéro avec Next.js, Tailwind, Prisma et TypeScript.
+
+## Source d'Inspiration
+
+Ce projet a été grandement inspiré par la vidéo YouTube intitulée "[Full Stack Ecommerce Store With Admin Dashboard From Scratch - Next.js, Prisma, Stripe, Tailwind](https://www.youtube.com/watch?v=iqrgggs0Qk0)" publiée par [Web Dev Simplified](https://www.youtube.com/@WebDevSimplified).
+
+## Table des Matières
+
+- [Next Ecommerce](#next-ecommerce)
+  - [Description](#description)
+  - [Source d'Inspiration](#source-dinspiration)
+  - [Table des Matières](#table-des-matières)
+  - [Dépendances](#dépendances)
+  - [Installation](#installation)
+  - [Évolutions Réalisées](#évolutions-réalisées)
+    - [Adoption de Biome pour remplacer ESLint et Prettier](#adoption-de-biome-pour-remplacer-eslint-et-prettier)
+    - [Optimisation des requêtes Prisma](#optimisation-des-requêtes-prisma)
+
+## Dépendances
+
+Les dépendances suivantes sont requises pour le fonctionnement correct du projet.
+
+- **@biomejs/biome**: Outil pour générer des modèles de code.
+- **@prisma/client**: Client Prisma pour interagir avec la base de données.
+- **@react-email/components**: Composants React pour créer des emails.
+- **@radix-ui/react-dropdown-menu**, **@radix-ui/react-label**, **@radix-ui/react-slot**: Composants UI de Radix pour construire des interfaces utilisateur.
+- **@stripe/react-stripe-js**, **@stripe/stripe-js**: Intégration de Stripe pour les paiements.
+- **clsx**: Utilitaire pour construire des chaînes de classes conditionnelles.
+- **husky**: Outil pour gérer les pré-commit et les hooks Git.
+- **lucide-react**: Icones pour les applications web.
+- **lint-staged**: Outil pour maintenir la qualité du code.
+- **next**: Framework React pour la création de sites web.
+- **postcss**: Postprocessor CSS.
+- **prisma**: ORM pour la gestion de bases de données.
+- **react**, **react-dom**: Bibliothèques React pour la construction d'interfaces utilisateur.
+- **resend**: Package pour gérer les retours d'email.
+- **stripe**: SDK officiel de Stripe pour Node.js.
+- **tailwindcss**: Framework CSS pour le design rapide.
+- **tailwind-merge**, **tailwindcss-animate**: Outils pour étendre TailwindCSS.
+- **typescript**: Superset de JavaScript pour le développement robuste.
+- **@types/node**, **@types/react**, **@types/react-dom**: Typescript definitions pour Node.js, React, et ReactDOM.
+
+## Installation
+
+Pour installer et exécuter ce projet localement:
+
+1. Clonez le dépôt:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/Forthtilliath/next-ecommerce.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Accédez au dossier du projet:
+```bash
+cd next-ecommerce
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Installez les dépendances:
+```bash
+npm i
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+4. Compléter le fichier .env
+```bash
+# Pour se connecter à la section Admin
+ADMIN_USERNAME=
+# Mot de passe crypté
+ADMIN_HASHED_PASSWORD=
 
-## Learn More
+# Stripe
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
+NEXT_PUBLIC_STRIPE_PUBLIC_KEY=
 
-To learn more about Next.js, take a look at the following resources:
+# Api Key de resend
+RESEND_API_KEY=
+# Email affiché lors de l'envoi d'un mail
+SENDER_EMAIL=
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5. Démarrez le projet:
+```bash
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Évolutions Réalisées
 
-## Deploy on Vercel
+La réalisation du projet était déjà de haute qualité, entraînant un nombre minimal d'améliorations.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Adoption de Biome pour remplacer ESLint et Prettier
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+L'outil Biome suscite actuellement beaucoup d'intérêt grâce à sa rapidité, sa performance accrue et son besoin réduit de packages. Convaincu par ces avantages, j'ai décidé de l'intégrer dans ce projet.
+
+### Optimisation des requêtes Prisma
+
+Afin de faciliter une future évolution de la base de données, toutes les requêtes Prisma ont été centralisées. Cette approche simplifie considérablement la gestion et accélère le processus d'adaptation face aux changements.
