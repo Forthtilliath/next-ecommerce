@@ -1,6 +1,6 @@
 "use server";
 
-import type { Product } from "@prisma/client";
+import type { Order, Product } from "@prisma/client";
 import prisma from "./prisma";
 
 export async function getSales() {
@@ -22,4 +22,20 @@ export async function getUserOrder(email: string, productId: Product["id"]) {
 		},
 		select: { id: true },
 	});
+}
+
+export async function getAll() {
+	return prisma.order.findMany({
+		select: {
+			id: true,
+			pricePaidInCents: true,
+			product: { select: { name: true } },
+			user: { select: { email: true } },
+		},
+		orderBy: { createdAt: "desc" },
+	});
+}
+
+export async function remove(id: Order["id"]) {
+	return prisma.order.delete({ where: { id } });
 }

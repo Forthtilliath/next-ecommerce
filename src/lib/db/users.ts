@@ -21,3 +21,22 @@ export async function createOrUpdate({
 export async function getCountUsers() {
 	return prisma.user.count();
 }
+
+export async function getAll() {
+	return prisma.user.findMany({
+		select: {
+			id: true,
+			email: true,
+			orders: {
+				select: {
+					pricePaidInCents: true,
+				},
+			},
+		},
+		orderBy: { createdAt: "desc" },
+	});
+}
+
+export async function remove(id: User["id"]) {
+	return prisma.user.delete({ where: { id } });
+}
