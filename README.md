@@ -1,5 +1,10 @@
 # Next Ecommerce
 
+![License](https://img.shields.io/badge/license-MIT-blue.svg) ![TypeScript](https://img.shields.io/badge/-TypeScript-blue?logo=typescript&logoColor=white)
+![Next.js](https://img.shields.io/badge/next.js-%2301BDFC.svg?style=for-the-badge&logo=next.js&logoColor=white) ![Prisma](https://img.shields.io/badge/Prisma-47848D?style=for-the-badge&logo=prisma&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white) ![Stripe](https://img.shields.io/badge/Stripe-000000?style=for-the-badge&logo=stripe&logoColor=white)
+
+
+
 ## Description
 
 Créer un site e-commerce n'est pas une mince affaire. Il y a tellement de choses différentes qui entrent en jeu même pour un site e-commerce simple, allant depuis un tableau de bord administrateur jusqu'à la gestion des paiements et des comptes, et bien d'autres encore.
