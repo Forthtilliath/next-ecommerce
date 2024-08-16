@@ -1,31 +1,42 @@
 # Next Ecommerce
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg) ![TypeScript](https://img.shields.io/badge/-TypeScript-blue?logo=typescript&logoColor=white)
+
 ![Next.js](https://img.shields.io/badge/next.js-%2301BDFC.svg?style=for-the-badge&logo=next.js&logoColor=white) ![Prisma](https://img.shields.io/badge/Prisma-47848D?style=for-the-badge&logo=prisma&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white) ![Stripe](https://img.shields.io/badge/Stripe-000000?style=for-the-badge&logo=stripe&logoColor=white)
 
 
+## Introduction
 
-## Description
+### Motivations Initiales
+
+- **Curiosité Technologique** : Après avoir exploré divers frameworks React, j'étais prêt à approfondir ma compréhension de Next.js, un framework qui promet une expérience de développement optimale grâce à ses fonctionnalités avancées telles que le rendu côté serveur et la génération de sites statiques.
+
+- **Découverte de Stripe** : L'intégration de Stripe dans ce projet représentait une excellente occasion de pénétrer dans le monde des paiements en ligne. Stripe est largement reconnu pour sa facilité d'utilisation, sa sécurité, et sa flexibilité, ce qui en fait un choix idéal pour toute application e-commerce. Je souhaitais non seulement comprendre comment intégrer Stripe dans une application, mais aussi explorer ses fonctionnalités avancées pour améliorer l'expérience utilisateur.
+
+### Description
 
 Créer un site e-commerce n'est pas une mince affaire. Il y a tellement de choses différentes qui entrent en jeu même pour un site e-commerce simple, allant depuis un tableau de bord administrateur jusqu'à la gestion des paiements et des comptes, et bien d'autres encore.
 
 Ce projet vous guidera à travers chaque étape cruciale pour lancer votre première boutique e-commerce, conçue de zéro avec Next.js, Tailwind, Prisma et TypeScript.
 
-## Source d'Inspiration
+### Source d'Inspiration
 
 Ce projet a été grandement inspiré par la vidéo YouTube intitulée "[Full Stack Ecommerce Store With Admin Dashboard From Scratch - Next.js, Prisma, Stripe, Tailwind](https://www.youtube.com/watch?v=iqrgggs0Qk0)" publiée par [Web Dev Simplified](https://www.youtube.com/@WebDevSimplified).
 
 ## Table des Matières
 
 - [Next Ecommerce](#next-ecommerce)
-  - [Description](#description)
-  - [Source d'Inspiration](#source-dinspiration)
+  - [Introduction](#introduction)
+    - [Motivations Initiales](#motivations-initiales)
+    - [Description](#description)
+    - [Source d'Inspiration](#source-dinspiration)
   - [Table des Matières](#table-des-matières)
   - [Dépendances](#dépendances)
   - [Installation](#installation)
   - [Évolutions Réalisées](#évolutions-réalisées)
     - [Adoption de Biome pour remplacer ESLint et Prettier](#adoption-de-biome-pour-remplacer-eslint-et-prettier)
     - [Optimisation des requêtes Prisma](#optimisation-des-requêtes-prisma)
+  - [Compétences Acquises](#compétences-acquises)
 
 ## Dépendances
 
@@ -104,3 +115,10 @@ L'outil Biome suscite actuellement beaucoup d'intérêt grâce à sa rapidité, 
 ### Optimisation des requêtes Prisma
 
 Afin de faciliter une future évolution de la base de données, toutes les requêtes Prisma ont été centralisées. Cette approche simplifie considérablement la gestion et accélère le processus d'adaptation face aux changements.
+
+## Compétences Acquises
+
+Au-delà des améliorations techniques, ce projet m'a permis de renforcer plusieurs compétences clés :
+
+- **Maîtrise avancée de Next.js** : J'ai approfondi ma compréhension de Next.js.
+- **Intégration de Stripe** : Une des découvertes les plus enrichissantes de ce projet a été l'apprentissage de l'intégration de Stripe. J'ai acquis une solide compréhension de la manière dont Stripe fonctionne, des étapes nécessaires pour configurer une intégration sécurisée, et comment gérer les transactions de manière efficace. Cette compétence est essentielle pour tout développeur souhaitant travailler sur des projets e-commerce ou nécessitant des fonctionnalités de paiement en ligne.
